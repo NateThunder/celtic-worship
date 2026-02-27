@@ -44,6 +44,11 @@
 .albumSection {
   display: grid;
   gap: 0;
+  margin-bottom: var(--space-section);
+}
+
+.albumSection:last-child {
+  margin-bottom: 0;
 }
 
 .albumLayout {
@@ -54,7 +59,7 @@
   padding: clamp(0.2rem, 0.6vw, 0.45rem) 0;
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 640ms ease, transform 640ms ease;
+  transition: opacity 800ms var(--ease-out-expo), transform 800ms var(--ease-out-expo);
 }
 
 .albumLayout.isVisible {
@@ -115,7 +120,7 @@
   align-items: center;
   gap: 0.55rem;
   width: 100%;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 0.7rem 0.82rem;
   border: 1px solid rgba(239, 236, 231, 0.28);
   background: rgba(255, 255, 255, 0.02);
@@ -124,13 +129,26 @@
   text-transform: none;
   letter-spacing: 0.01em;
   text-decoration: none;
+  opacity: 0;
+  transform: translateX(10px);
   transition:
-    transform 170ms ease,
+    opacity 600ms var(--ease-out-expo),
+    transform 600ms var(--ease-out-expo),
     border-color 170ms ease,
     box-shadow 170ms ease,
     background-color 170ms ease,
     color 170ms ease;
 }
+
+.albumLayout.isVisible .streamLink {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.streamLink:nth-child(1) { transition-delay: 100ms; }
+.streamLink:nth-child(2) { transition-delay: 200ms; }
+.streamLink:nth-child(3) { transition-delay: 300ms; }
+.streamLink:nth-child(4) { transition-delay: 400ms; }
 
 .streamLink:hover,
 .streamLink:focus-visible {
@@ -188,12 +206,12 @@
 .divider {
   height: 1px;
   width: 100%;
-  margin: clamp(1.5rem, 3vw, 2rem) 0;
+  margin: 0;
   background: linear-gradient(
     90deg,
-    rgba(240, 238, 233, 0.05) 0%,
-    rgba(240, 238, 233, 0.3) 50%,
-    rgba(240, 238, 233, 0.05) 100%
+    rgba(240, 238, 233, 0.02) 0%,
+    rgba(240, 238, 233, 0.15) 50%,
+    rgba(240, 238, 233, 0.02) 100%
   );
 }
 

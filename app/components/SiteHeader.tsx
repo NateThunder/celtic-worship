@@ -316,7 +316,7 @@ export default function SiteHeader() {
           return (
             <a
               key={item.href}
-              className={isActive ? "is-active" : undefined}
+              className={isActive ? "is-active" : ""}
               href={resolvedHref}
               aria-current={isActive ? "page" : undefined}
               onClick={() => {
