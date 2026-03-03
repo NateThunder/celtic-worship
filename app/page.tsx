@@ -100,11 +100,11 @@ export default function Home() {
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>
-              PSALMS, HYMNS & SPIRITUAL SONGS.
+              Psalms, Hymns & <br /> Spiritual Songs
             </h1>
             <p className="hero-copy">
               <strong>Celtic Worship</strong> is a Christ-centred worship collective 
-              writing and leading songs for the church through the sounds of Scotland. 
+              writing and leading songs for the church <br className="hidden md:block" /> through the sounds of Scotland.
             </p>
           </div>
         </section>

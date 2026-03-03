@@ -1,15 +1,45 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1c1c1c;
-  --foreground: #f5f5f5;
-  --gold: #e3b948;
+  --background: #0d1117;
+  --foreground: #fcfcfc;
+  --gold: #c5a059;
+  --gold-muted: #a38141;
   --upcoming-events-bg: var(--gold);
-  --light: #e7e7e7;
+  --light: #f5f5f0;
   --charcoal-linen: url("/textures/linen-charcoal-seamless-1920x1080.png");
-  --header-link: rgba(255, 255, 255, 0.93);
-  --header-link-hover: #ffffff;
+  --header-link: rgba(255, 255, 255, 0.85);
+  --header-link-hover: var(--gold);
   --header-link-active: #ffffff;
+
+  /* Refined Design System Variables */
+  --font-serif: var(--font-cormorant), serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+  --space-section: clamp(4.5rem, 10vw, 9rem);
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.3);
+  --shadow-layered: 0 1px 2px rgba(0,0,0,0.07),
+                    0 2px 4px rgba(0,0,0,0.07),
+                    0 4px 8px rgba(0,0,0,0.07),
+                    0 8px 16px rgba(0,0,0,0.07),
+                    0 16px 32px rgba(0,0,0,0.07);
+}
+
+.noise-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 @theme inline {
@@ -39,7 +69,18 @@ body {
   background-repeat: repeat;
   background-size: 1920px 1080px;
   color: var(--foreground);
-  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, .serif-text {
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .site-shell {
@@ -68,8 +109,8 @@ body {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform;
-  transition: background-color 260ms ease, padding 260ms ease, backdrop-filter 260ms ease,
-    border-color 260ms ease;
+  transition: background-color 400ms var(--ease-out-expo), padding 400ms var(--ease-out-expo), backdrop-filter 400ms var(--ease-out-expo),
+    border-color 400ms var(--ease-out-expo);
 }
 
 .site-header.is-scrolled {
@@ -173,6 +214,7 @@ body {
 
 .nav-toggle.is-open span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .nav-toggle.is-open span:nth-child(3) {
@@ -215,16 +257,18 @@ body {
 }
 
 .social-link:focus-visible {
-  outline: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .main-nav a {
+  font-family: var(--font-serif);
   color: var(--header-link);
   text-decoration: none;
-  text-transform: uppercase;
-  font-size: 16px;
-  letter-spacing: 0.24em;
-  font-weight: 700;
+  text-transform: none;
+  font-size: 19px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
   line-height: 1;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.66);
   transition: color 160ms ease, opacity 160ms ease, transform 160ms ease;
@@ -246,7 +290,8 @@ body {
 .main-nav a:focus-visible {
   color: var(--header-link-hover);
   opacity: 1;
-  outline: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 8px;
   text-shadow: 0 0 16px rgba(255, 255, 255, 0.56), 0 2px 14px rgba(0, 0, 0, 0.66);
 }
 
@@ -315,12 +360,13 @@ body {
 }
 
 .hero-content h1 {
-  font-family: var(--font-anton), Impact, sans-serif;
-  color: var(--upcoming-events-bg);
-  text-transform: uppercase;
-  font-size: clamp(calc(2.35rem - 20px), calc(6.4vw - 20px), calc(6.6rem - 20px));
-  line-height: 0.92;
-  letter-spacing: 0.01em;
+  font-family: var(--font-serif);
+  color: var(--foreground);
+  text-transform: none;
+  font-size: clamp(2.8rem, 7.5vw, 7.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   margin: 0;
   max-width: 23ch;
   text-wrap: balance;
@@ -328,13 +374,13 @@ body {
 
 .hero-copy {
   margin: 0;
-  max-width: 74ch;
-  font-size: clamp(0.98rem, 1.25vw, 2rem);
+  max-width: 60ch;
+  font-size: clamp(0.98rem, 1.25vw, 1.35rem);
   color: #f3f3f3;
-  line-height: 1.42;
+  line-height: 1.5;
   letter-spacing: 0.005em;
   text-transform: none;
-  font-weight: 500;
+  font-weight: 400;
   text-wrap: balance;
 }
 
@@ -354,6 +400,25 @@ body {
   min-height: clamp(36rem, 88vh, 60rem);
   padding: clamp(3.6rem, 8vw, 6.8rem) clamp(1rem, 4vw, 2.2rem);
   background: var(--upcoming-events-bg);
+}
+
+.live-events-section,
+.section-gold,
+.section-light {
+  position: relative;
+  isolation: isolate;
+}
+
+.live-events-section::after,
+.section-gold::after,
+.section-light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 .live-events-page {
@@ -376,11 +441,12 @@ body {
 .live-events-title {
   margin: 0 0 clamp(1.25rem, 2.8vw, 2.2rem);
   color: #111111;
-  text-transform: uppercase;
-  font-family: var(--font-anton), Impact, sans-serif;
-  font-size: clamp(1.65rem, 4.1vw, 3.5rem);
-  letter-spacing: 0.015em;
-  line-height: 1.02;
+  text-transform: none;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5.2vw, 4.4rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 #bandsintown-events {
@@ -479,7 +545,8 @@ body {
 }
 
 .events-ticket-link:focus-visible {
-  outline: none;
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
 }
 
 .events-ticket-unavailable {
@@ -511,11 +578,11 @@ body {
   margin: 0;
   max-width: min(94vw, 100%);
   color: #f1f1f1;
-  font-family: var(--font-anton), Impact, sans-serif;
-  font-size: clamp(1.05rem, 2.4vw, 1.85rem);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: 0.015em;
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.2vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
   text-wrap: balance;
 }
 
@@ -600,8 +667,8 @@ body {
 }
 
 .featured-video-poster:focus-visible {
-  outline: 3px solid #ffffff;
-  outline-offset: -3px;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .featured-video-frame {
@@ -654,12 +721,12 @@ body {
 .release-title {
   margin: 0;
   color: #111111;
-  text-transform: uppercase;
-  font-family: var(--font-anton), Impact, sans-serif;
-  letter-spacing: 0.01em;
-  line-height: 1;
-  font-size: clamp(1.2rem, 2.7vw, 2.2rem);
-  white-space: nowrap;
+  text-transform: none;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  font-size: clamp(1.8rem, 4.2vw, 3.2rem);
 }
 
 .album-stack {
@@ -675,11 +742,11 @@ body {
   margin: 0;
   position: absolute;
   inset: 0;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 15px 34px rgba(0, 0, 0, 0.22);
   background: #dbdbdb;
-  transition: transform 380ms ease, box-shadow 380ms ease;
+  transition: transform 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo);
   will-change: transform;
 }
 
@@ -711,23 +778,23 @@ body {
 }
 
 .album-stack.is-expanded .album-card {
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+  box-shadow: var(--shadow-layered);
 }
 
 .album-stack.is-expanded .album-homeward {
-  transform: translate(-34px, -24px) rotate(-4deg) scale(0.94);
+  transform: translate(-54px, -34px) rotate(-4deg) scale(0.94);
 }
 
 .album-stack.is-expanded .album-morningtide {
-  transform: translate(31px, -24px) rotate(3.5deg) scale(0.92);
+  transform: translate(51px, -34px) rotate(3.5deg) scale(0.92);
 }
 
 .album-stack.is-expanded .album-come-behold {
-  transform: translate(-20px, 18px) rotate(-2.2deg) scale(0.96);
+  transform: translate(-30px, 28px) rotate(-2.2deg) scale(0.96);
 }
 
 .album-stack.is-expanded .album-harvest {
-  transform: translate(6px, 1px) rotate(1.5deg) scale(1.05);
+  transform: translate(10px, 4px) rotate(1.5deg) scale(1.08);
 }
 
 .release-platforms {
@@ -816,8 +883,8 @@ body {
 }
 
 .platform-button:focus-visible {
-  outline: 2px solid rgba(0, 0, 0, 0.35);
-  outline-offset: 2px;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .platform-spotify {
@@ -879,11 +946,12 @@ body {
 .merch-title {
   margin: 0;
   color: #111;
-  text-transform: uppercase;
-  font-family: var(--font-anton), Impact, sans-serif;
-  font-size: clamp(1.4rem, 3vw, 2.6rem);
-  line-height: 1.02;
-  letter-spacing: 0.015em;
+  text-transform: none;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
 }
 
 .merch-copy {
@@ -925,7 +993,8 @@ body {
 }
 
 .merch-link:focus-visible {
-  outline: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .shop-page {
@@ -956,11 +1025,12 @@ body {
 
 .shop-title {
   margin: 0.2rem 0 0;
-  font-family: var(--font-anton), Impact, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.015em;
-  font-size: clamp(1.7rem, 4.6vw, 3.1rem);
-  line-height: 1;
+  font-family: var(--font-serif);
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: clamp(2.4rem, 5.8vw, 4.8rem);
+  line-height: 1.1;
 }
 
 .shop-nav {
@@ -992,7 +1062,8 @@ body {
 }
 
 .shop-nav-link:focus-visible {
-  outline: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .shop-status {
@@ -1077,7 +1148,8 @@ body {
 }
 
 .shop-card-link:focus-visible {
-  outline: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 @media (max-width: 1024px) {
